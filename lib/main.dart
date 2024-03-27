@@ -1,4 +1,7 @@
+// ignore_for_file: must_be_immutable, prefer_const_constructors, sized_box_for_whitespace, avoid_unnecessary_containers, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
+import 'package:weather_app/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,59 +13,91 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Demo App',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyMainPage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+class MyMainPage extends StatefulWidget {
+  const MyMainPage({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MyMainPage> createState() => _MyMainPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class _MyMainPageState extends State<MyMainPage> {
+  var selectedPage = 0;
 
   @override
   Widget build(BuildContext context) {
-
+    Widget page;
+    switch (selectedPage) {
+      case 0:
+        page = MyHomePage();
+      case 1:
+        page = Placeholder();
+      case 2:
+        page = Placeholder();
+      case 3:
+        page = Placeholder();
+      default:
+        throw UnimplementedError('No widget for this $selectedPage index.');
+    }
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+      body: Row(
+        children: [
+          Expanded(
+            child: Container(
+              child: page,
+            ),
+          ),
+        ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+      bottomNavigationBar: Padding(
+        padding: EdgeInsets.all(15),
+        child: ClipRRect(
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          child: Material(
+            color: Colors.transparent,
+            child: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Colors.black,
+              selectedLabelStyle: TextStyle(fontSize: 12),
+              unselectedLabelStyle: TextStyle(fontSize: 12),
+              selectedItemColor: Colors.blue,
+              unselectedItemColor: Colors.white,
+              items: [
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home_rounded),
+                  label: "Home",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite_rounded),
+                  label: "Liked",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.people_rounded),
+                  label: "Community",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.home),
+                  label: "Home",
+                ),
+              ],
+              currentIndex: selectedPage,
+              onTap: (value) => {setState(() => selectedPage = value)},
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), 
+      //   ],
+      // ),
     );
   }
 }
