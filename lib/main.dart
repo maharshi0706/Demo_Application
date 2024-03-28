@@ -86,8 +86,8 @@ class _MyMainPageState extends State<MyMainPage> {
                   label: "Community",
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: "Home",
+                  icon: Icon(Icons.turned_in_not_rounded),
+                  label: "Saved",
                 ),
               ],
               currentIndex: selectedPage,
