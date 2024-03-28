@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:weather_app/post.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -15,7 +16,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Stack(
         children: [
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
           ),
@@ -67,24 +68,44 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       color: Colors.white,
                       width: MediaQuery.of(context).size.width,
-                      height: 40,
+                      height: 60,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              SizedBox(
-                                height: 30,
-                                child: TextField(
-                                  decoration: InputDecoration(
-                                    hintText: ('Search messages'),
+                              Container(
+                                width: MediaQuery.of(context).size.width - 200,
+                                height: 50,
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 150, top: 5, bottom: 5),
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.search),
+                                      hintText: ('Search messages'),
+                                      contentPadding:
+                                          EdgeInsets.symmetric(vertical: 5),
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                        borderSide:
+                                            BorderSide(color: Colors.grey),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
                               SizedBox(
                                 width: 5,
                               ),
+                              Padding(
+                                  padding: EdgeInsets.all(15),
+                                  child: Icon(
+                                    Icons.filter_list_rounded,
+                                    color: Colors.blue,
+                                  ))
                             ],
                           )
                         ],
@@ -95,6 +116,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
+          SizedBox(
+            height: 10,
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: PostCard(),
+          )
         ],
       ),
     );
