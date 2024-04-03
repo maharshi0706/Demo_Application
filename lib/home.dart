@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
-                              Container(
+                              SizedBox(
                                 width: MediaQuery.of(context).size.width - 200,
                                 height: 50,
                                 child: Padding(
@@ -111,18 +111,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         ],
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    SizedBox(
+                        height: 250,
+                        width: MediaQuery.of(context).size.width,
+                        child: PostCard()),
                   ],
                 ),
               ),
             ),
           ),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            child: PostCard(),
-          )
         ],
       ),
     );
