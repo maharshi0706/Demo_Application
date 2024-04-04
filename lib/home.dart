@@ -43,7 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               padding: EdgeInsets.all(5),
                               child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Icon(Icons.menu),
                                   Text(
@@ -76,11 +76,11 @@ class _MyHomePageState extends State<MyHomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               SizedBox(
-                                width: MediaQuery.of(context).size.width - 200,
+                                width: MediaQuery.of(context).size.width - 90,
                                 height: 50,
                                 child: Padding(
                                   padding: EdgeInsets.only(
-                                      left: 150, top: 5, bottom: 5),
+                                      left: 15, top: 5, bottom: 5),
                                   child: TextField(
                                     decoration: InputDecoration(
                                       prefixIcon: Icon(Icons.search),
@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 10,
                     ),
                     SizedBox(
-                        height: 250,
+                        height: MediaQuery.of(context).size.height / 1.4,
                         width: MediaQuery.of(context).size.width,
                         child: PostCard()),
                   ],

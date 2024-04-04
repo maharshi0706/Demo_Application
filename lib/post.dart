@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'dart:convert';
 // import 'dart:html';
 
@@ -31,10 +33,9 @@ class _PostCardState extends State<PostCard> {
         .get(Uri.parse("https://post-api-omega.vercel.app/api/posts?page=1"));
     if (response.statusCode == 200) {
       final List<dynamic> data = jsonDecode(response.body);
-      // print(data);
+      if (!mounted) return;
       setState(() {
         events = data.map((json) => Event.fromJson(json)).toList();
-        print(events[0]);
       });
     } else {
       throw Exception('Failed to load events.');
@@ -47,23 +48,6 @@ class _PostCardState extends State<PostCard> {
     super.dispose();
   }
 
-  // void fetchPosts() async {
-  //   final response = await http.get(Uri.parse(
-  //       'https://post-api-omega.vercel.app/api/posts?page=$currentPage'));
-
-  //   if (response.statusCode == 200) {
-  //     List<Post> newPosts = (json.decode(response.body) as List)
-  //         .map((e) => Post.fromJson(e))
-  //         .toList();
-
-  //     setState(() {
-  //       posts.addAll(newPosts);
-  //     });
-  //   } else {
-  //     throw Exception('Failed to load posts.');
-  //   }
-  // }
-
   void scrollListener() {
     if (scrollController.position.pixels ==
         scrollController.position.maxScrollExtent) {
@@ -75,33 +59,129 @@ class _PostCardState extends State<PostCard> {
     }
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return ListView.builder(
-  //     controller: scrollController,
-  //     itemCount: posts.length,
-  //     itemBuilder: (context, index) {
-  //       return ListTile(
-  //         title: Text(posts[index].title),
-  //         subtitle: Text(posts[index].body),
-  //         onTap: () {},
-  //       );
-  //     },
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: events.length,
       itemBuilder: (context, index) {
         final event = events[index];
-        return ListTile(title: Text(event.title), subtitle: Text(event.body));
+        return Card(
+            margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            elevation: 4.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0),
+            ),
+            color: Colors.white,
+            child: Column(
+              children: [
+                ListTile(
+                  contentPadding: EdgeInsets.all(16.0),
+                  title: Text(
+                    event.title,
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                  subtitle: Text(event.body),
+                  // trailing: SizedBox(
+                  //   // height: 40,
+                  //   // width: 40,
+                  //   child: Image.network(
+                  //     event.imageURL,
+                  //     height: 80,
+                  //     width: 40,
+                  //   ),
+                  // ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(5),
+                  height: 50,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.black,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.favorite_border_outlined),
+                        color: Colors.white,
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.comment),
+                        color: Colors.white,
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.share),
+                        color: Colors.white,
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ));
       },
     );
   }
 }
 
+class Event {
+  final String title;
+  final String body;
+  final String id;
+  final String imageURL;
+
+  Event({
+    required this.title,
+    required this.body,
+    required this.id,
+    required this.imageURL,
+  });
+
+  factory Event.fromJson(Map<String, dynamic> json) {
+    return Event(
+      title: json['title'] as String,
+      body: json['eventDescription'] as String,
+      id: json['_id'] as String,
+      imageURL: (json['image'] as List<dynamic>).isEmpty
+          ? ''
+          : json['image'][0] as String,
+    );
+  }
+}
+// void fetchPosts() async {
+//   final response = await http.get(Uri.parse(
+//       'https://post-api-omega.vercel.app/api/posts?page=$currentPage'));
+
+//   if (response.statusCode == 200) {
+//     List<Post> newPosts = (json.decode(response.body) as List)
+//         .map((e) => Post.fromJson(e))
+//         .toList();
+
+//     setState(() {
+//       posts.addAll(newPosts);
+//     });
+//   } else {
+//     throw Exception('Failed to load posts.');
+//   }
+// }
+
+// @override
+// Widget build(BuildContext context) {
+//   return ListView.builder(
+//     controller: scrollController,
+//     itemCount: posts.length,
+//     itemBuilder: (context, index) {
+//       return ListTile(
+//         title: Text(posts[index].title),
+//         subtitle: Text(posts[index].body),
+//         onTap: () {},
+//       );
+//     },
+//   );
+// }
 // class Post {
 //   final String title;
 //   final String body;
@@ -113,27 +193,3 @@ class _PostCardState extends State<PostCard> {
 //     return Post(id: json['id'], title: json['title'], body: json['body']);
 //   }
 // }
-
-class Event {
-  final String title;
-  final String body;
-  final int id;
-  final String imageURL;
-
-  Event(
-      {required this.body,
-      required this.id,
-      required this.imageURL,
-      required this.title});
-
-  factory Event.fromJson(Map<String, dynamic> json) {
-    print("HI");
-    print(json['eventDescription']);
-    return Event(
-      id: json["_id"],
-      body: json["eventDescription"],
-      title: json["title"],
-      imageURL: json["image"],
-    );
-  }
-}
