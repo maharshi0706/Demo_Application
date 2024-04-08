@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'dart:convert';
-// import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -14,7 +13,6 @@ class PostCard extends StatefulWidget {
 }
 
 class _PostCardState extends State<PostCard> {
-  // List<Post> posts = [];
   List<Event> events = [];
   int currentPage = 1;
   ScrollController scrollController = ScrollController();
@@ -81,15 +79,6 @@ class _PostCardState extends State<PostCard> {
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   subtitle: Text(event.body),
-                  // trailing: SizedBox(
-                  //   // height: 40,
-                  //   // width: 40,
-                  //   child: Image.network(
-                  //     event.imageURL,
-                  //     height: 80,
-                  //     width: 40,
-                  //   ),
-                  // ),
                 ),
                 Container(
                   margin: EdgeInsets.all(5),
@@ -151,45 +140,3 @@ class Event {
     );
   }
 }
-// void fetchPosts() async {
-//   final response = await http.get(Uri.parse(
-//       'https://post-api-omega.vercel.app/api/posts?page=$currentPage'));
-
-//   if (response.statusCode == 200) {
-//     List<Post> newPosts = (json.decode(response.body) as List)
-//         .map((e) => Post.fromJson(e))
-//         .toList();
-
-//     setState(() {
-//       posts.addAll(newPosts);
-//     });
-//   } else {
-//     throw Exception('Failed to load posts.');
-//   }
-// }
-
-// @override
-// Widget build(BuildContext context) {
-//   return ListView.builder(
-//     controller: scrollController,
-//     itemCount: posts.length,
-//     itemBuilder: (context, index) {
-//       return ListTile(
-//         title: Text(posts[index].title),
-//         subtitle: Text(posts[index].body),
-//         onTap: () {},
-//       );
-//     },
-//   );
-// }
-// class Post {
-//   final String title;
-//   final String body;
-//   final int id;
-
-//   Post({required this.body, required this.id, required this.title});
-
-//   factory Post.fromJson(Map<String, dynamic> json) {
-//     return Post(id: json['id'], title: json['title'], body: json['body']);
-//   }
-// }

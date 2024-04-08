@@ -96,46 +96,6 @@ class _MyMainPageState extends State<MyMainPage> {
           onTap: (value) => {setState(() => selectedPage = value)},
         ),
       ),
-      // bottomNavigationBar:
-      //     // Padding(
-      //     //   padding: EdgeInsets.all(15),
-      //     // child:
-      //     ClipRRect(
-      //   borderRadius: BorderRadius.all(Radius.circular(15)),
-      //   child: Material(
-      //     color: Colors.transparent,
-      //     child: BottomNavigationBar(
-      //       type: BottomNavigationBarType.fixed,
-      //       backgroundColor: Colors.black,
-      //       selectedLabelStyle: TextStyle(fontSize: 12),
-      //       unselectedLabelStyle: TextStyle(fontSize: 12),
-      //       selectedItemColor: Colors.blue,
-      //       unselectedItemColor: Colors.white,
-      //       items: [
-      //         BottomNavigationBarItem(
-      //           icon: Icon(Icons.home_rounded),
-      //           label: "Home",
-      //         ),
-      //         BottomNavigationBarItem(
-      //           icon: Icon(Icons.favorite_rounded),
-      //           label: "Liked",
-      //         ),
-      //         BottomNavigationBarItem(
-      //           icon: Icon(Icons.people_rounded),
-      //           label: "Community",
-      //         ),
-      //         BottomNavigationBarItem(
-      //           icon: Icon(Icons.turned_in_not_rounded),
-      //           label: "Saved",
-      //         ),
-      //       ],
-      //       currentIndex: selectedPage,
-      //       onTap: (value) => {setState(() => selectedPage = value)},
-      //     ),
-      //   ),
-      // ),
-      //   ],
-      // ),
     );
   }
 }
